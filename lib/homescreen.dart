@@ -68,16 +68,31 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(title: const Text('My Recipes')),
       body: SafeArea(
         child: ListView.builder(
+          padding: const EdgeInsets.all(12),
           itemCount: recipes.length,
           itemBuilder: (context, i) {
             final r = recipes[i];
-            return ListTile(
-              title: Text(r['title']),
-              subtitle: Text(
-                '${(r['ingredients'] as List).length} ingredients',
+            return Card(
+              margin: const EdgeInsets.only(bottom: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => openDetails(r),
+              child: ListTile(
+                title: Text(r['title']),
+                subtitle: Wrap(
+                  spacing: 8,
+                  children: [
+                    Chip(
+                      label: Text(
+                        '${(r['ingredients'] as List).length} ingredients',
+                      ),
+                    ),
+                    Chip(label: Text('${(r['steps'] as List).length} steps')),
+                  ],
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => openDetails(r),
+              ),
             );
           },
         ),
