@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -49,6 +50,18 @@ class _HomeScreenState extends State<HomeScreen> {
     },
   ];
 
+  void openDetails(Map<String, dynamic> r) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => DetailsScreen(
+          title: r['title'],
+          ingredients: List<String>.from(r['ingredients']),
+          steps: List<String>.from(r['steps']),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 '${(r['ingredients'] as List).length} ingredients',
               ),
               trailing: const Icon(Icons.chevron_right),
-              onTap: () {},
+              onTap: () => openDetails(r),
             );
           },
         ),
